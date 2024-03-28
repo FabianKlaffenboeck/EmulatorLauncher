@@ -1,0 +1,99 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.runtime' version '1.8.5'
+    id 'edu.sc.seis.launch4j' version '2.4.9'
+}
+
+ext {
+    exeDirectory = "${buildDir}/launch4j"
+    jreDirectory = "${buildDir}/jre"
+    libDirectory = "${buildDir}/launch4j/lib"
+    modDirectory = "${buildDir}/launch4j/mod"
+}
+
+group 'com.Fabian'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = '15.0.1'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+}
+
+compileJava {
+    sourceCompatibility = '15'
+    targetCompatibility = '15'
+}
+
+
+dependencies {
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
+    implementation('eu.hansolo:tilesfx:11.48')
+}
+
+launch4j {
+    mainClassName = "com.fabian.emulatorlauncher.Main"
+    outfile = "EmulatorLauncher.exe"
+    icon = "${projectDir}/src/main/resources/icon.ico"
+    bundledJrePath = "jre"
+    jvmOptions = [
+            '--module-path=mod',
+            '--add-modules javafx.base,javafx.controls,javafx.fxml,javafx.graphics',
+    ]
+}
+
+mainClassName = "com.fabian.emulatorlauncher.Main"
+
+jre {
+    manifest {
+        attributes("Main-Class": "com.fabian.emulatorlauncher.Main",)
+    }
+}
+
+task copyJre(type: Copy) {
+    group = 'Zip'
+    outputs.upToDateWhen { false }
+    description = 'Copy the custom JRE image to the deploy directory'
+    from jreDirectory
+    into exeDirectory + "/jre"
+    include '**'
+    exclude 'lib/javafx*'
+}
+
+task copyFx(type: Copy) {
+    group = 'Zip'
+    outputs.upToDateWhen { false }
+    from libDirectory
+    into modDirectory
+    include 'javafx*'
+}
+
+task delFX(type: Delete) {
+    group = 'Zip'
+    outputs.upToDateWhen { false }
+    delete fileTree(libDirectory) {
+        include 'javafx*'
+    }
+}
+
+task createZip(type: Zip) {
+    group = 'Zip'
+    outputs.upToDateWhen { false }
+    description = 'Create a ZIP File'
+    from exeDirectory
+}
+
+copyJre.dependsOn("runtime")
+copyJre.dependsOn("launch4j")
+copyFx.dependsOn("runtime")
+copyFx.dependsOn("createExe")
+delFX.dependsOn("copyFx")
+createZip.dependsOn("clean")
+createZip.dependsOn("copyJre")
+createZip.dependsOn("delFX")
+

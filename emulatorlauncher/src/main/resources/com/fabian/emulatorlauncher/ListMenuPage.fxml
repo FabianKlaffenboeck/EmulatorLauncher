@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane layoutY="80.0" prefHeight="366.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabian.emulatorlauncher.Controller.ListMenuPageController">
+    <ListView fx:id="ListOfEmulators" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="276.0" />
+   <Button fx:id="LaunchButton" layoutX="14.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#LaunchButton" />
+   <Button fx:id="BackupButton" layoutX="251.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#BackupButton" />
+</AnchorPane>

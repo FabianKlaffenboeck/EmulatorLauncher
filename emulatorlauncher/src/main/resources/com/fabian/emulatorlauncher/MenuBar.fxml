@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fabian.emulatorlauncher.Controller.MenuBarController">
+    <children>
+        <AnchorPane fx:id="TopBar" prefHeight="70.0" prefWidth="305.0">
+            <children>
+                <GridPane prefHeight="70.0" prefWidth="305.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="EmulatorListButton" mnemonicParsing="false" onMouseClicked="#EmulatorList" text="" />
+                        <Button fx:id="SettingsButton" mnemonicParsing="false" onMouseClicked="#Settings" text="" GridPane.columnIndex="1" />
+                        <Button fx:id="CloseButton" mnemonicParsing="false" onMouseClicked="#Close" text="" GridPane.columnIndex="2" />
+                    </children>
+                </GridPane>
+            </children>
+        </AnchorPane>
+        <fx:include fx:id="ListMenuPage" source="ListMenuPage.fxml" />
+        <fx:include fx:id="SettingsPage" source="SettingsPage.fxml" />
+    </children>
+</AnchorPane>

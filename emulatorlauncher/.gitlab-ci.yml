@@ -1,0 +1,14 @@
+stages:
+  - build
+
+build:
+  image: gradle:6.7-jdk15
+  stage: build
+  script:
+    - gradle createZip
+  artifacts:
+    paths:
+      - build/distributions
+  cache:
+    paths:
+      - build/
